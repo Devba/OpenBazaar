@@ -143,9 +143,9 @@ class OpenBazaarContext(object):
                     'us.seed.bizarre.company',
                     'eu.seed.bizarre.company'
                 ],
-                'disable_upnp': False,
+                'disable_upnp': true,
                 'disable_stun_check': False,
-                'disable_open_browser': False,
+                'disable_open_browser': True,
                 'disable_sqlite_crypt': False,
                 'log_level': 30,
                 # CRITICAL=50, ERROR=40, WARNING=30, DEBUG=10, DATADUMP=5, NOTSET=0
@@ -193,6 +193,8 @@ class MarketApplication(tornado.web.Application):
         self.transport = CryptoTransportLayer(ob_ctx, db)
         self.market = Market(self.transport, db)
         self.upnp_mapper = None
+        
+        print" alvaro init"
 
         Thread(target=reactor.run, args=(False,)).start()
 
@@ -226,6 +228,7 @@ class MarketApplication(tornado.web.Application):
             self.setup_upnp_port_mappings(self.ob_ctx.server_port)
         else:
             print "MarketApplication.start_app(): Disabling upnp setup"
+            print "alvaro"
 
     def get_transport(self):
         return self.transport
